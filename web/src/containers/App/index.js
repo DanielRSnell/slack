@@ -1,13 +1,25 @@
-import { combineReducers } from 'redux';
-import { reducer as form } from 'redux-form';
 
-const appReducer = combineReducers({
-  form,
-});
+// @flow
+import React, { Component } from 'react';
+import { BrowserRouter, Match, Miss } from 'react-router';
+import Home from '../Home';
+import NotFound from '../../components/NotFound';
+import Login from '../Login';
+import Signup from '../Signup';
 
-export default function (state, action) {
-  if (action.type === 'LOGOUT') {
-    return appReducer(undefined, action);
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <div style={{ display: 'flex', flex: '1' }}>
+          <Match exactly pattern="/" component={Home} />
+          <Match pattern="/login" component={Login} />
+          <Match pattern="/signup" component={Signup} />
+          <Miss component={NotFound} />
+        </div>
+      </BrowserRouter>
+    );
   }
-  return appReducer(state, action);
 }
+
+export default App;
